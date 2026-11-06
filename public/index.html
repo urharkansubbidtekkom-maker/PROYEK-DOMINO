@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Domino Online</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-tile"><i></i><i></i></span>
+        <span>DOMINO<em>ONLINE</em></span>
+      </div>
+      <div id="connection" class="pill pill-wait">Menghubungkan...</div>
+    </header>
+
+    <main>
+      <section id="lobby" class="screen">
+        <div class="card lobby-card">
+          <h1>Domino Gaple</h1>
+          <p class="muted">4 pemain · 7 kartu · real-time</p>
+
+          <label class="field-label" for="name-input">Nama kamu</label>
+          <input id="name-input" class="input" maxlength="20" placeholder="Masukkan nama" autocomplete="off">
+
+          <button id="create-btn" class="btn primary block">Buat Room Baru</button>
+
+          <div class="divider"><span>atau gabung room</span></div>
+
+          <label class="field-label" for="code-input">Kode room</label>
+          <div class="join-row">
+            <input id="code-input" class="input code-input" maxlength="5" placeholder="ABCDE" autocomplete="off">
+            <button id="join-btn" class="btn">Gabung</button>
+          </div>
+
+          <p id="lobby-error" class="error"></p>
+          <p id="lobby-status" class="muted small hidden"></p>
+        </div>
+      </section>
+
+      <section id="room" class="screen hidden">
+        <div class="card room-card">
+          <div class="room-head">
+            <div>
+              <span class="muted small">Kode Room</span>
+              <div class="room-code" id="room-code">-----</div>
+            </div>
+            <button id="copy-btn" class="btn ghost small">Salin kode</button>
+          </div>
+
+          <p id="room-notice" class="notice hidden"></p>
+          <div class="seats" id="room-seats"></div>
+
+          <div class="room-foot">
+            <p id="room-hint" class="muted"></p>
+            <div class="row">
+              <button id="leave-btn" class="btn ghost">Keluar</button>
+              <button id="start-btn" class="btn primary">Mulai Game</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="game" class="screen hidden">
+        <div class="game-top">
+          <div class="players-strip" id="players-strip"></div>
+          <button id="game-leave-btn" class="btn ghost small">Keluar</button>
+        </div>
+
+        <div class="table-area">
+          <div id="scene-container" class="scene-container"></div>
+          <div class="table-overlay">
+            <div class="table-message" id="table-message"></div>
+            <div class="table-ends">
+              <span class="end-chip">Ujung kiri <b id="left-end">–</b></span>
+              <span class="end-chip">Ujung kanan <b id="right-end">–</b></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hud">
+          <div class="turn-banner" id="turn-banner"></div>
+          <div class="hud-controls">
+            <div class="side-chooser hidden" id="side-chooser">
+              <span>Letakkan kartu di:</span>
+              <button class="btn small" data-side="left">Kiri</button>
+              <button class="btn small" data-side="right">Kanan</button>
+              <button class="btn ghost small" data-side="cancel">Batal</button>
+            </div>
+            <button id="pass-btn" class="btn warn hidden">Lewati Giliran</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <div id="result-overlay" class="overlay hidden">
+    <div class="card result-card">
+      <div class="result-badge" id="result-badge">Ronde Selesai</div>
+      <h2 id="result-title"></h2>
+      <p id="result-text" class="muted"></p>
+      <div class="result-points" id="result-points"></div>
+      <div class="result-hands" id="result-hands"></div>
+      <div class="row result-actions">
+        <button id="next-round-btn" class="btn primary">Ronde Berikutnya</button>
+        <button id="result-leave-btn" class="btn ghost">Keluar Room</button>
+      </div>
+      <p id="result-hint" class="muted small"></p>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "/vendor/three/three.module.js",
+        "three/addons/": "/vendor/three/addons/"
+      }
+    }
+  </script>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
